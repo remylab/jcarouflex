@@ -1,297 +1,302 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html>
-
 <head>
 	<title>jCarouflex - jQuery plugin</title>
-    <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
 
-
-	<script type="text/javascript" src="/_js/ga_page.js"></script>
-
-    <!--[if lt IE 9]>
-	    <script type="text/javascript" src="/_js/css3-mediaqueries.js"></script>
-    <![endif]-->
-
-	<script type="text/javascript" src="/_js/jquery-1.5.1.min.js"></script>
-	<script type="text/javascript" src="/_js/jquery-ui-1.8.13.slider.min.js"></script>
-	<script type="text/javascript" src="jcarouflex-min.js"></script>
-
-
-    <link href="/_css/styles.css" rel="stylesheet" type="text/css" />
-
-	<style type="text/css">
-	    div   { border:solid 1px green; }
-        body {
-            font-family: 'Arvo', serif;
+    <style type="text/css">
+        h3 {
+            line-height:18px;
         }
-        pre {
-            background-color:#fbf9ea;
-            border:solid 1px #e2e1d5;
-            padding:2%;
+        h3 .small { font-size:15px;}
+        #teaser1 li{
+            width:70px;height:50px;
+            padding:4px;
+            color:white;
+            border:1px solid black;
         }
-        .opt div {
-            float:left;
-            width:100%;
+        #slides1 {
+            width:300px;
         }
-        .opt .left {
-            width:35%;
-            margin-right:5%;
+
+        #slides1 li {
+            width:300px;
+            height:178px;
+            border:1px solid black;
         }
-        .opt .right {
-            width:58%;  color:blue;
+
+        #teaser2 li{
+            width:70px;height:50px;
+            color:white;
+            border:1px solid black;
         }
-        .newfeature {
-            color:#F8A72F;
-            font-weight: bold;
+        #slides2 {
+            width:250px;
         }
-        /* example of css if you use over and max buttons */
-        .jPaginatorOver {
-            float:left;
-            width:30px;
-            height:20px;
-            background-color:#BCF2D5;
-            text-align:center;
-            margin:0 2px 0 2px;
+        #slides2 li {
+            width:200;
+            height:200px;
+            border:1px solid black;
+            color:white;
         }
-        .jPaginatorMax {
-            float:left;
-            width:30px;
-            height:20px;
-            background-color:#5FAABC;
-            cursor:pointer;
-            text-align:center;
+
+        #teaser3 li{
+            width:80px;height:50px;
+            color:white;
+            border:1px solid black;
         }
-	</style>
+        #slides3 {
+            width:250px;
+        }
+        #slides3 li {
+            width:244px;
+            height:200px;
+            border:1px solid black;
+            color:white;
+        }
+        #teaser4 li{
+            width:70px;height:50px;
+            padding:4px;
+            color:white;
+            border:1px solid black;
+        }
+        #teaser5 li{
+            width:70px;height:50px;
+            padding:4px;
+            color:white;
+            border:1px solid black;
+        }
 
-	<script type="text/javascript">
-  function isNumeric(value) {
-    if (value == null || !value.toString().match(/^[-]?\d*\.?\d*$/)) return false;
-    return true;
-  }
-	// Initial call
-	$(document).ready(function(){
 
-        $.jCarouflex({
-            teaser: "#teaser1",
-            slides: "#slides1",
-            speed: 800,
-            pauseTime:1000,
-            visibleTeaser:3,
-            visibleSlides:1,
-            verticalTeaser:true,
-            verticalSlides:false,
-            teaserDir:-1,
-            pause:true,
-            start:1
-        });
+    </style>
 
-        $.jCarouflex({
-            teaser: "#teaser2",
-            teaserNext:"#next2",
-            teaserPrev:"#prev2",
-            slides: "#slides2",
-            speed: 800,
-            pauseTime:1000,
-            visibleTeaser:2,
-            visibleSlides:1,
-            verticalTeaser:false,
-            verticalSlides:true,
-            pause:true,
-            start:2
-        });
+    <script type="text/javascript" src="/_js/ga_page.js"></script>
+    <script type="text/javascript" src="/_js/jquery-1.5.1.min.js"></script>
 
-        $.jCarouflex({
-            teaser: "#teaser3",
-            teaserNext:"#next3",
-            teaserPrev:"#prev3",
-            slides: "#slides3",
-            speed: 800,
-            pauseTime:1000,
-            visibleTeaser:3,
-            visibleSlides:1,
-            verticalTeaser:false,
-            verticalSlides:true,
-            teaserDir:-1,
-            slidesDir:-1,
-            pause:true,
-            start:3
-        });
 
-        $.jCarouflex({
-            teaser: "#teaser4",
-            teaserNext:"#next4",
-            teaserPrev:"#prev4",
-            btnPause:"#pause4",
-            teaserDir:-1,
-            speed: 800,
-            pauseTime:1000,
-            afterPause:function(a,b) {
-                var s = "pause";
-                if (b) s = "play";
-                a.html(s);
-            },
-            visibleTeaser:4,
-            pause:true,
-            start:4
-        });
+    <!-- If you want to enjoy jcarousellite features use these includes
+    <script type="text/javascript" src="jcarousellite_1.0.1-custom-min.js"></script>
+    <script type="text/javascript" src="aui.itunify-min.js"></script>
+    -->
 
-        $.jCarouflex({
-            teaser: "#teaser5",
-            teaserNext:"#next5",
-            teaserPrev:"#prev5",
-            btnPause:"#pause5",
-            speed: 800,
-            pauseTime:1000,
-            afterPause:function(a,b) {
-                var s = "pause";
-                if (b) s = "play";
-                a.html(s);
-            },
-            visibleTeaser:4,
-            pause:true,
-            start:4
-        });
+    <!-- if you're only interested in the itunify version, use this one -->
+    <script type="text/javascript" src="jcarouflex-min.js"></script>
 
-        $("#pauseAll").click(function() {
-            var b = false;
-            if ( $("#pauseAll").val() == "pause" ) b = true;
 
-            $(".teaser").each(function(n) {
-                $( this ).trigger("pause",b);
+
+    <script type="text/javascript">
+
+        var dir = 'next'; var nbPrev = 0;
+
+        $(document).ready(function() {
+
+            $.jCarouflex({
+                teaser: "#teaser1",
+                slides: "#slides1",
+                speed: 800,
+                pauseTime:1000,
+                visibleTeaser:3,
+                visibleSlides:1,
+                verticalTeaser:true,
+                verticalSlides:false,
+                teaserDir:-1,
+                pause:true,
+                start:1
             });
 
-            var s = "pause";
-            if ( b ) s = "play";
+            $.jCarouflex({
+                teaser: "#teaser2",
+                teaserNext:"#next2",
+                teaserPrev:"#prev2",
+                slides: "#slides2",
+                speed: 800,
+                pauseTime:1000,
+                visibleTeaser:2,
+                visibleSlides:1,
+                verticalTeaser:false,
+                verticalSlides:true,
+                pause:true,
+                start:2
+            });
 
-            $("#pauseAll").val(s);
-            $("#pause4").html(s);
-            $("#pause5").html(s);
+            $.jCarouflex({
+                teaser: "#teaser3",
+                teaserNext:"#next3",
+                teaserPrev:"#prev3",
+                slides: "#slides3",
+                speed: 800,
+                pauseTime:1000,
+                visibleTeaser:3,
+                visibleSlides:1,
+                verticalTeaser:false,
+                verticalSlides:true,
+                teaserDir:-1,
+                slidesDir:-1,
+                pause:true,
+                start:3
+            });
+
+            $.jCarouflex({
+                teaser: "#teaser4",
+                teaserNext:"#next4",
+                teaserPrev:"#prev4",
+                btnPause:"#pause4",
+                teaserDir:-1,
+                speed: 800,
+                pauseTime:1000,
+                afterPause:function(a,b) {
+                    var s = "pause";
+                    if (b) s = "play";
+                    a.html(s);
+                },
+                visibleTeaser:4,
+                pause:true,
+                start:4
+            });
+
+            $.jCarouflex({
+                teaser: "#teaser5",
+                teaserNext:"#next5",
+                teaserPrev:"#prev5",
+                btnPause:"#pause5",
+                speed: 800,
+                pauseTime:1000,
+                afterPause:function(a,b) {
+                    var s = "pause";
+                    if (b) s = "play";
+                    a.html(s);
+                },
+                visibleTeaser:4,
+                pause:true,
+                start:4
+            });
+
+            $("#pauseAll").click(function() {
+                var b = false;
+                if ( $("#pauseAll").val() == "pause" ) b = true;
+
+                $(".teaser").each(function(n) {
+                    $( this ).trigger("pause",b);
+                });
+
+                var s = "pause";
+                if ( b ) s = "play";
+
+                $("#pauseAll").val(s);
+                $("#pause4").html(s);
+                $("#pause5").html(s);
+
+            });
 
         });
 
 
-	});
 
 
-	</script>
-
-
+    </script>
 
 </head>
+<body style="width:1000px;margin:20px">
 
-<body>
-
-	<div class="content" >
-
-		<h1>jCarouflex</h1>
-        jPaginator is a lightweight jQuery plugin (5kb) for pagination. It's fun, intuitive, it comes with a slider and you can ask for an unlimited number of pages.
-        Use it with a unique element, for more details please have a look at <a href="#demo1">the code of demo1</a> and the <a href="#options">plugin's options</a>.
-        Don't forget the CSS page "jPaginator.css".<br/><br/>
-
-        Dependencies : jQuery 1.3.2+, jQuery UI Slider<br/>
+    <div style="float:left;width:600px;">
+        You can play or pause all the sliders, by clicking here :
+        <input id="pauseAll" type="button" value="play"/>
+    </div>
 
 
-		<br/><br/>
-
-        <a name="options"/><h2>Plugin's options (with default values) :</h2>
-
-		<div style="position:relative;overflow:hidden;line-height:26px;">
-            <div class="opt" style="width:90%;margin-left:6%;">
-                <div><div class="left">selectedPage: null,       </div><div class="right">Current selected page</div></div>
-                <div><div class="left">nbPages: 100,             </div><div class="right">Total number of pages</div></div>
-                <div><div class="left">nbVisible: 10,            </div><div class="right">Number of pages by slide</div></div>
-                <div><div class="left">widthPx: 30,              </div><div class="right">Page-number width (px)</div></div>
-                <div><div class="left">marginPx: 1,              </div><div class="right">Page-number margin (px)</div></div>
-                <div><div class="left">overBtnLeft: null,        </div><div class="right">Element id of the over button left (move forward on mouseover)</div></div>
-                <div><div class="left">overBtnRight: null,       </div><div class="right">Element id of the over button right (move backward on mouseover)</div></div>
-                <div><div class="left">maxBtnLeft: null,         </div><div class="right">Element id of the max button left (go to first slide on click)</div></div>
-                <div><div class="left">maxBtnRight: null,        </div><div class="right">Element id of the max button right (go to last slide on click)</div></div>
-                <div><div class="left">withSlider: true,         </div><div class="right">Display slider (true/false),</div></div>
-                <div><div class="left">withAcceleration: true,   </div><div class="right">Enable acceleration (true/false)</div></div>
-                <div><div class="left">speed: 2,                 </div><div class="right">Animation speed (1 to 5)</div></div>
-                <div><div class="left">coeffAcceleration: 2,     </div><div class="right">Acceleration speed (1 to 5)</div></div>
-                <div><div class="left">minSlidesForSlider: 3,    </div><div class="right">Minimum number of slides to display the slider. Ex : 32 pages for 10 pages by slide = 4 slides,
-                so if <i>minSlidesForSlider</i> = 5 then slider won't be displayed.</div></div>
-                <div><div class="left">onPageClicked: function(a,num) {}  </div><div class="right">Function called when a page number is clicked (where a = the root element of the paginator)</div></div>
-
-            </div>
-		</div>
-
-		
-		<a href="https://github.com/remylab/jPaginator#readme" target="_blank"><img src="/_img/git-logo.png" alt=""></a>
-    The source code : <a href="https://github.com/remylab/jPaginator#readme" target="_blank">jPaginator</a>
-		
-		<br/><br/>
-    
-
-
-        <a name="demo1"/><h2>Code of demo1</h2>
-        <b>The Javascript :</b>
-<pre>
-$(<span style=' color: Maroon;'>"#test1"</span>).jPaginator({ 
-    nbPages:<span style=' color: Maroon;'>54</span>, 
-    overBtnLeft:<span style=' color: Maroon;'>'#test1_o_left'</span>, 
-    overBtnRight:<span style=' color: Maroon;'>'#test1_o_right'</span>, 
-    maxBtnLeft:<span style=' color: Maroon;'>'#test1_m_left'</span>, 
-    maxBtnRight:<span style=' color: Maroon;'>'#test1_m_right'</span>,
-    minSlidesForSlider:<span style=' color: Maroon;'>5</span>, 
-    onPageClicked: <span style=' color: Blue;'>function</span>(a,num) { 
-        $(<span style=' color: Maroon;'>"#page1"</span>).html(<span style=' color: Maroon;'>"demo1 - page : "</span>+num); 
-    }
-});  
-
-<span style=' color: Green;'>// code for the reset button</span> 
-$(<span style=' color: Maroon;'>"#resetdemo1"</span>).click(<span style=' color: Blue;'>function</span>(){ 
-    <span style=' color: Blue;'>if</span> ( !isNumeric($(<span style=' color: Maroon;'>"#nbpages1"</span>).val()) ) <span style=' color: Blue;'>return</span>; 
-     
-    $(<span style=' color: Maroon;'>"#test1"</span>).trigger(<span style=' color: Maroon;'>"reset"</span>,{  
-        selectedPage:<span style=' color: Maroon;'>null</span>, 
-        nbVisible:<span style=' color: Maroon;'>6</span>, 
-        nbPages:$(<span style=' color: Maroon;'>"#nbpages1"</span>).val(),
-        marginPx:<span style=' color: Maroon;'>8</span>, 
-        speed:<span style=' color: Maroon;'>1</span> 
-    }); 
-});
-</pre>
-
-        <b>The HTML :</b>
-<pre>
-&lt;div id=<span style=' color: Maroon;'>"test1"</span>&gt; 
-
-    <span style=' color: Green;'>&lt;!-- optional left control buttons --&gt;</span> 
-    &lt;a id=<span style=' color: Maroon;'>"test1_m_left"</span>&gt;&lt;/a&gt;&lt;div id=<span style=' color: Maroon;'>"test1_o_left"</span>&gt;&lt;/div&gt; 
-
-    &lt;div <span style=' color: Blue;'>class</span>='paginator_p_wrap'&gt; 
-        &lt;div <span style=' color: Blue;'>class</span>='paginator_p_bloc'&gt; 
-            <span style=' color: Green;'>&lt;!--&lt;a class='paginator_p'&gt;&lt;/a&gt; // page number : dynamically added --&gt;</span> 
-        &lt;/div&gt; 
-    &lt;/div&gt; 
-
-    <span style=' color: Green;'>&lt;!-- optional right control buttons --&gt;</span> 
-    &lt;div id=<span style=' color: Maroon;'>"test1_o_right"</span>&gt;&lt;/div&gt;&lt;a id=<span style=' color: Maroon;'>"test1_m_right"</span>&gt;&lt;/a&gt; 
-
-
-    <span style=' color: Green;'>&lt;!-- slider --&gt;</span> 
-    &lt;div <span style=' color: Blue;'>class</span>='paginator_slider' <span style=' color: Blue;'>class</span>='ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all'&gt; 
-        &lt;a <span style=' color: Blue;'>class</span>='ui-slider-handle ui-state-<span style=' color: Blue;'>default</span> ui-corner-all' href=<span style=' color: Maroon;'>'#'</span>&gt;&lt;/a&gt; 
-    &lt;/div&gt; 
-
-&lt;/div&gt;
-</pre>
+    <div style="float:left;width:400px;height:300px;margin:20px;">
+        <h3>Demo 1 - itune-store style <br/><span class="small">(slides: forward / teaser: backward / start: 1)</span></h3>
+        <div id="slides1" class="pause" style="float:left;">
+            <ul>
+                <li style="background-color:blue;">big 1</li>
+                <li style="background-color:orange;">big 2</li>
+                <li style="background-color:green;">big 3</li>
+                <li style="background-color:grey;">big 4</li>
+                <li style="background-color:#af0;">big 5</li>
+                <li style="background-color:#de0;">big 6</li>
+                <li style="background-color:#bb6;">big 7</li>
+            </ul>
+        </div>
+        <div id="teaser1" class="teaser" >
+            <ul>
+                <li style="background-color:#bb6;">big 7</li>
+                <li style="background-color:#be0;">big 6</li>
+                <li style="background-color:#af0;">big 5</li>
+                <li style="background-color:grey;">big 4</li>
+                <li style="background-color:green;">big 3</li>
+                <li style="background-color:orange;">big 2</li>
+                <li style="background-color:blue;">big 1</li>
+            </ul>
+        </div>
+    </div>
 
 
 
-		<div style="float:right;margin:5% 5% 5% 5% ;">
-			Author : R&eacute;my Elazare <br/>(remylab.info@gmail.com)
-		</div>
 
+    <div style="float:left;width:400px;height:300px;margin:20px;">
+        <h3>Demo 2 - regular style<br/><span class="small">(slides: forward / teaser: forward / start: 2)</span></h3>
+        <div id="slides2" class="pause" >
+            <ul>
+                <li style="background-color:blue;">big 1</li>
+                <li style="background-color:orange;">big 2</li>
+                <li style="background-color:green;">big 3</li>
+                <li style="background-color:grey;">big 4</li>
+            </ul>
+        </div>
+        <div id="teaser2" class="teaser pause" style="float:left;" >
+            <ul>
+                <li style="background-color:blue;">big 1</li>
+                <li style="background-color:orange;">big 2</li>
+                <li style="background-color:green;">big 3</li>
+                <li style="background-color:grey;">big 4</li>
+            </ul>
+        </div>
+        <div style="position:relative;float:left;"><button id="prev2">prev</button><button id="next2">next</button></div>
+    </div>
 
+    <div style="float:left;width:400px;height:300px;margin:30px;">
+        <h3>Demo 3 - waterfall style<br/><span class="small">(slides: backward / teaser: backward / start: 3)</span></h3>
+        <div id="teaser3" class="teaser" style="float:left;" >
+            <ul>
+                <li style="background-color:grey;">big 4</li>
+                <li style="background-color:green;">big 3</li>
+                <li style="background-color:orange;">big 2</li>
+                <li style="background-color:blue;">big 1</li>
+            </ul>
+        </div>
+        <div id="slides3" class="pause" >
+            <ul>
+                <li style="background-color:grey;">big 4</li>
+                <li style="background-color:green;">big 3</li>
+                <li style="background-color:orange;">big 2</li>
+                <li style="background-color:blue;">big 1</li>
+            </ul>
+        </div>
+        <button id="prev3">prev</button><button id="next3">next</button>
+    </div>
 
-	</div>
-
+    <div style="float:left;width:350px;height:300px;margin-top:30px;">
+        <h3>Demo 4 - simple carousel <br/><span class="small">(teaser: backward / start: 4)</span></h3>
+        <div id="teaser4" class="teaser pause" style="float:left;" >
+            <ul>
+                <li style="background-color:grey;">big 4</li>
+                <li style="background-color:green;">big 3</li>
+                <li style="background-color:orange;">big 2</li>
+                <li style="background-color:blue;">big 1</li>
+            </ul>
+        </div>
+        <button id="prev4">prev</button><button id="pause4">play</button><button id="next4">next</button>
+        <h3 >Demo 5 - simple carousel <br/><span class="small">(teaser: forward / start: 4)</span></h3>
+        <div id="teaser5" class="teaser pause" style="float:left;" >
+            <ul>
+                <li style="background-color:blue;">big 1</li>
+                <li style="background-color:orange;">big 2</li>
+                <li style="background-color:green;">big 3</li>
+                <li style="background-color:grey;">big 4</li>
+            </ul>
+        </div>
+        <button id="prev5">prev</button><button id="pause5">play</button><button id="next5">next</button
+    </div>
 
 </body>
-
 </html>
