@@ -1,0 +1,44 @@
+A jQuery plugin to link two carousels together (like the iTunes store carousel). You can find a few examples of the possibilities offered by the plugin here : 
+
+http://www.remylab.net46.net/demos/jquery-plugins/jcarouflex/
+
+Code sample :
+
+            $.jCarouflex({
+                teaser: "#teaser1",
+                slides: "#slides1",
+                speed: 800,
+                pauseTime:1000,
+                visibleTeaser:3,
+                visibleSlides:1,
+                verticalTeaser:true,
+                verticalSlides:false,
+                teaserDir:-1,
+                pause:true,
+                start:1
+            });
+
+The HTML :
+
+        <div id="slides1" class="pause" style="float:left;">
+            <ul>
+                <li style="background-color:blue;">big 1</li>
+                <li style="background-color:orange;">big 2</li>
+                <li style="background-color:green;">big 3</li>
+                <li style="background-color:grey;">big 4</li>
+                <li style="background-color:#af0;">big 5</li>
+                <li style="background-color:#de0;">big 6</li>
+                <li style="background-color:#bb6;">big 7</li>
+            </ul>
+        </div>
+        <div id="teaser1" class="teaser" >
+            <ul>
+                <li style="background-color:#bb6;">big 7</li>
+                <li style="background-color:#be0;">big 6</li>
+                <li style="background-color:#af0;">big 5</li>
+                <li style="background-color:grey;">big 4</li>
+                <li style="background-color:green;">big 3</li>
+                <li style="background-color:orange;">big 2</li>
+                <li style="background-color:blue;">big 1</li>
+            </ul>
+        </div>
