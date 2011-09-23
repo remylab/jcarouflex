@@ -1,4 +1,6 @@
-A jQuery plugin to link two carousels together (like the iTunes store carousel). You can find a few examples of the possibilities offered by the plugin here : 
+A jQuery plugin to link two carousels together (like the iTunes store carousel). You can control the direction of both carousels (backward/forward and vertical/horizontal).  
+
+You can find a few examples of the possibilities offered by the plugin here : 
 
 http://www.remylab.net46.net/demos/jquery-plugins/jcarouflex/
 
