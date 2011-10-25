@@ -1,12 +1,18 @@
 (function($) {                                          // Compliant with jquery.noConflict()
-$.fn.xv924 = function(o) {
-    o = $.extend({
+$.fn.jCarouflexLite = function(o) {
+    o = $.extend({   
         dir:1,
-        speed: 200,
+        btnPrev: null,
+        btnNext: null,
+        
+        speed: 800,
+        easing: null,
+
         vertical: false,
         visible: 3,
-        start: 0,
         scroll: 1,
+        start:1,
+
         beforeStart: null,
         afterEnd: null
     }, o || {});
@@ -14,15 +20,28 @@ $.fn.xv924 = function(o) {
     return this.each(function() {                           // Returns the element collection. Chainable.
 
         var running = false, animCss=o.vertical?"top":"left", sizeCss=o.vertical?"height":"width";
-        var div = $(this), ul = $("ul", div), tLi = $("li", ul), tl = tLi.size(), v = o.visible, is = o.start;
+        var div = $(this), ul = $("ul", div), tLi = $("li", ul), tl = tLi.size(), v = o.visible, sc = o.scroll, st = o.start;
 
-        ul.prepend(tLi.slice(tl-v-1+1).clone())
-          .append(tLi.slice(0,v).clone());
-        o.start += v;
+        sc = Math.min(o.visible,sc); 
+        sc = Math.max(1,sc);
 
-        var li = $("li", ul), itemLength = li.size(), curr = o.start;
+        st = Math.min(tl,st); 
+        st = Math.max(1,st);
+        
+        if ( st>1 ) {
+          ul.append(tLi.clone());
+          var liS = $("li", ul).slice(st-1,st+tl-1).clone();
+          ul.empty().append( liS );
+          $("li",ul).each(function(i){$("#log").append($(this).html());});   
+          tLi = $("li", ul);
+        }
+          
+        ul.prepend(tLi.slice(tl-sc).clone())
+          .append(tLi.slice(0,sc).clone());
+
+        var li = $("li", ul), itemLength = li.size(), curr = 0;
         div.css("visibility", "visible");
-
+        
         li.css({overflow: "hidden"});li.css("float", o.vertical ? "none" : "left");
         ul.css({margin: "0", padding: "0", position: "relative", "list-style-type": "none", "z-index": "1"});
         div.css({overflow: "hidden", position: "relative", "z-index": "2", left: "0px"});
@@ -32,40 +51,49 @@ $.fn.xv924 = function(o) {
         var divSize = liSize * v;                           // size of entire div(total length for just the visible items)
 
         li.css({width: li.width(), height: li.height()});
-        ul.css(sizeCss, ulSize+"px").css(animCss, -(curr*liSize));
+        ul.css(sizeCss, ulSize+"px").css(animCss, -(sc*liSize));
 
         div.css(sizeCss, divSize+"px");                     // Width of the DIV. length of visible images
 
         $(this).bind('moveDir', function(event,dir) {
-            return go( curr+(o.dir*dir*o.scroll) );
+            return go( dir*o.dir );
         });
+            
+        if(o.btnPrev)
+            $(o.btnPrev).click(function() {
+                return go(-1*o.dir);
+            });
+
+        if(o.btnNext)
+            $(o.btnNext).click(function() {
+                return go(1*o.dir);
+            });
 
         function vis() {
-            return li.slice(curr).slice(0,v);
+            return li.slice(curr,curr+v);
         };
-
-        function go(to) {
-            if(!running) {
-
-                if(o.beforeStart)
-                    o.beforeStart.call(this, vis());
-                if(to+is<=o.start-v-1) {           // If first, then goto last
-                    ul.css(animCss, -((itemLength-(v*2))*liSize)+"px");
-                    // If "scroll" > 1, then the "to" might not be equal to the condition; it can be lesser depending on the number of elements.
-                    curr = to==o.start-v-1 ? itemLength-(v*2)-1 : itemLength-(v*2)-o.scroll;
-                } else if(to>=itemLength-v+1) { // If last, then goto first
-                    ul.css(animCss, -( (v) * liSize ) + "px" );
-                    // If "scroll" > 1, then the "to" might not be equal to the condition; it can be greater depending on the number of elements.
-                    curr = to==itemLength-v+1 ? v+1 : v+o.scroll;
-                } else curr = to;                            // If neither overrides it, the curr will still be "to" and we can proceed.
-
+              
+        function go(dir) { 
+  
+            if(!running) { 
                 running = true;
 
+                if(o.beforeStart) o.beforeStart.call(this, vis());
+                var nLi = (dir==1) ? $("li", ul).slice(2*sc,tl+2*sc).clone() : $("li", ul).slice(0,tl).clone() ;;
+        
+                curr = (dir==1)?2*sc:0;
+
+                var newLeft = (dir==1)?-2*sc*liSize:0; 
+                //running = false; return; 
                 ul.animate(
-                    animCss == "left" ? { left: -(curr*liSize) } : { top: -(curr*liSize) } , o.speed, o.easing,
+                    animCss == "left" ? { left: newLeft } : { top: newLeft } , o.speed, o.easing,
                     function() {
-                        if(o.afterEnd)
-                            o.afterEnd.call(this, vis());
+                        if(o.afterEnd) o.afterEnd.call(this, vis());
+                        
+                        ul.empty().append(nLi)
+                        .prepend(nLi.slice(tl-sc).clone()).append(nLi.slice(0,sc).clone());
+                        ul.css(animCss, -sc*liSize); 
+                        li = $("li", ul);
                         running = false;
                     }
                 );
@@ -86,6 +114,7 @@ function height(el) {
     return el[0].offsetHeight + css(el, 'marginTop') + css(el, 'marginBottom');
 };
 
+
 })(jQuery);
 jQuery.jCarouflex = function(o) {
     o = $.extend({
@@ -101,11 +130,11 @@ jQuery.jCarouflex = function(o) {
         visibleSlides:1,
         verticalTeaser:false,
         verticalSlides:true,
-        scroll:1,
+        teaserScroll:1,   
+        slidesScroll:1,
         teaserDir:1,
         slidesDir:1,
-        pause:false,
-        start:1
+        pause:false
     }, o || {});
 
     /* init carousel data */
@@ -117,18 +146,14 @@ jQuery.jCarouflex = function(o) {
         stop:false,
         pause:o.pause
     });
-
-    o.start = Math.min(Math.max(1,o.start),nli);
-
-
-    if ( o.slides != null ) ist = nli -o.visibleTeaser-1;
-    $( o.teaser ).xv924({
+    
+    $( o.teaser ).jCarouflexLite({
         visible:o.visibleTeaser,
         vertical:o.verticalTeaser,
         speed: o.speed,
-        scroll: o.scroll,
+        scroll: o.teaserScroll,
         dir:o.teaserDir,
-        start:ist+(o.start-1)*o.teaserDir,
+        start:(o.teaserDir==1)?o.teaserScroll+1: $("li",o.teaser ).length-o.visibleTeaser-o.teaserScroll+1,
         beforeStart:function(a){
             $( o.teaser ).data(n).isMoving = true;
             if (o.slides)
@@ -150,14 +175,13 @@ jQuery.jCarouflex = function(o) {
     }
 
     if ( o.slides ) {
-        if ( o.slidesDir == -1 ) iss = $( o.slides ).find("li").size()-1;
-        $( o.slides ).xv924({
+        $( o.slides ).jCarouflexLite({
             visible: o.visibleSlides,
             vertical: o.verticalSlides,
             speed: o.speed,
-            scroll: o.scroll,
+            scroll: o.slidesScroll,
             dir:o.slidesDir,
-            start:iss+(o.start-1)*o.slidesDir,
+            start:(o.slidesDir==1)?1: $("li",o.slides ).length-o.slidesScroll+1,
             afterEnd:function(a){
                 onCycleEnd();
             }
