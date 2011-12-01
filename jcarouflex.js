@@ -28,11 +28,18 @@ $.fn.jCarouflexLite = function(o) {
         st = Math.min(tl,st); 
         st = Math.max(1,st);
         
+        ul.empty()
+        tLi.each(function(i){
+        	if ( o.dir == 1 ) { ul.append(this);  }
+        	else {  ul.prepend(this);  }
+        });
+        tLi = $("li", ul);
+        
         if ( st>1 ) {
           ul.append(tLi.clone());
           var liS = $("li", ul).slice(st-1,st+tl-1).clone();
-          ul.empty().append( liS );
-          $("li",ul).each(function(i){$("#log").append($(this).html());});   
+          ul.empty().append( liS);
+          //$("li",ul).each(function(i){$("#log").append($(this).html());});   
           tLi = $("li", ul);
         }
           
@@ -70,7 +77,7 @@ $.fn.jCarouflexLite = function(o) {
             });
 
         function vis() {
-            return li.slice(curr,curr+v);
+            return li.slice(v,v+1);
         };
               
         function go(dir) { 
@@ -88,12 +95,16 @@ $.fn.jCarouflexLite = function(o) {
                 ul.animate(
                     animCss == "left" ? { left: newLeft } : { top: newLeft } , o.speed, o.easing,
                     function() {
-                        if(o.afterEnd) o.afterEnd.call(this, vis());
-                        
+
+
                         ul.empty().append(nLi)
                         .prepend(nLi.slice(tl-sc).clone()).append(nLi.slice(0,sc).clone());
+
                         ul.css(animCss, -sc*liSize); 
+                        
                         li = $("li", ul);
+                        if(o.afterEnd) o.afterEnd.call(this, vis());
+                        
                         running = false;
                     }
                 );
@@ -154,6 +165,8 @@ jQuery.jCarouflex = function(o) {
         scroll: o.teaserScroll,
         dir:o.teaserDir,
         start:(o.teaserDir==1)?o.teaserScroll+1: $("li",o.teaser ).length-o.visibleTeaser-o.teaserScroll+1,
+        userBeforeStart: o.beforeStart,
+        userAfterEnd: o.afterEnd,
         beforeStart:function(a){
             $( o.teaser ).data(n).isMoving = true;
             if (o.slides)
@@ -161,7 +174,6 @@ jQuery.jCarouflex = function(o) {
         },
         afterEnd:function(a){
             if ( o.slides == null ) onCycleEnd();
-
         }
     });
 
@@ -183,7 +195,11 @@ jQuery.jCarouflex = function(o) {
             dir:o.slidesDir,
             start:(o.slidesDir==1)?1: $("li",o.slides ).length-o.slidesScroll+1,
             afterEnd:function(a){
+            	if ( o.afterEnd ) o.afterEnd(a);
                 onCycleEnd();
+            },
+            beforeStart:function(a){
+            	if ( o.beforeStart ) o.beforeStart(a);
             }
         });
     }
