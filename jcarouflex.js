@@ -22,7 +22,9 @@ $.fn.jCarouflexLite = function(o) {
         var running = false, animCss=o.vertical?"top":"left", sizeCss=o.vertical?"height":"width";
         var div = $(this), ul = $("ul", div), tLi = $("li", ul), tl = tLi.size(), v = o.visible, sc = o.scroll, st = o.start;
 
-        sc = Math.min(o.visible,sc); 
+        v = Math.min(tl,v);
+        
+        sc = Math.min(v,sc); 
         sc = Math.max(1,sc);
 
         st = Math.min(tl,st); 
