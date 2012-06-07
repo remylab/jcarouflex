@@ -6,38 +6,38 @@ http://www.remylab.net46.net/demos/jquery-plugins/jcarouflex/
 
 Code sample :
 
-			// if you add the class "pause" to the teaser or the slides element 
-			// a moveEnter on these elements will pause the carousel
+	// if you add the class "pause" to the teaser or the slides element 
+	// a moveEnter on these elements will pause the carousel
 
-            $.jCarouflex({
-                teaser: "#teaser2", // thumbnail carousel
-                teaserNext:"#next2", // next button
-                teaserPrev:"#prev2", // previous button
-                slides: "#slides2", // big carousel
-                slidesDir:-1, // default 1 = anti clockwise dircection
-                speed: 800, // animation speed
-                pauseTime:5000, // pause time before changing slide
-                visibleTeaser:2, // number of visible slides in the teaser carousel
-                visibleSlides:1, // number of visible slides in the main carousel
-                verticalTeaser:false, // default false = animation direction of the teaser carousel
-                verticalSlides:false, // default true = animation direction of the main carousel
-                afterEnd:function(elt){ // triggered at the end of the animation, elt is the current slide of the main carousel
-                	elt.find(".text").delay(1000).fadeIn(100); 
-                },
-                beforeStart:function(elt){// triggered before the animation, elt is the current slide of the main carousel
-                	elt.find(".text").hide();
-                },
-                pause:false, // default false , is the carousel pause by default
-                btnPause:"#pause2", // selector of the pause button, a pause event is binded to a click on that element
-                afterPause:function(a,b) {   // a = btn element, b = pause state (true/false)
-                    var s = "pause";         // for example you can change the layout of the button after each click
-                    if (b) s = "play";
-                    a.html(s);
-                }
-            });
+	$.jCarouflex({
+		teaser: "#teaser2", // thumbnail carousel
+		teaserNext:"#next2", // next button
+		teaserPrev:"#prev2", // previous button
+		slides: "#slides2", // big carousel
+		slidesDir:-1, // default 1 = anti clockwise dircection
+		speed: 800, // animation speed
+		pauseTime:5000, // pause time before changing slide
+		visibleTeaser:2, // number of visible slides in the teaser carousel
+		visibleSlides:1, // number of visible slides in the main carousel
+		verticalTeaser:false, // default false = animation direction of the teaser carousel
+		verticalSlides:false, // default true = animation direction of the main carousel
+		afterEnd:function(elt){ // triggered at the end of the animation, elt is the current slide of the main carousel
+			elt.find(".text").delay(1000).fadeIn(100); 
+		},
+		beforeStart:function(elt){// triggered before the animation, elt is the current slide of the main carousel
+			elt.find(".text").hide();
+		},
+		pause:false, // default false , is the carousel pause by default
+		btnPause:"#pause2", // selector of the pause button, a pause event is binded to a click on that element
+		afterPause:function(a,b) {   // a = btn element, b = pause state (true/false)
+		    var s = "pause";         // for example you can change the layout of the button after each click
+		    if (b) s = "play";
+		    a.html(s);
+		}
+	});
             
-            // snippet to pause a the above slider :
-            $("#teaser2").trigger("pause",true);
+	// snippet to pause a the above slider :
+	$("#teaser2").trigger("pause",true);
 
 The HTML :
 
