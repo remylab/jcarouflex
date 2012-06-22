@@ -20,7 +20,7 @@ $.fn.jCarouflexLite = function(o) {
     return this.each(function() {                           // Returns the element collection. Chainable.
 
         var running = false, animCss=o.vertical?"top":"left", sizeCss=o.vertical?"height":"width";
-        var div = $(this), ul = $("ul", div), tLi = $("li", ul), tl = tLi.size(), v = o.visible, sc = o.scroll, st = o.start;
+        var div = $(this), ul = $(">ul", div), tLi = $(">li", ul), tl = tLi.size(), v = o.visible, sc = o.scroll, st = o.start;
 
         v = Math.min(tl,v);
         
@@ -35,20 +35,20 @@ $.fn.jCarouflexLite = function(o) {
         	if ( o.dir == 1 ) { ul.append(this);  }
         	else {  ul.prepend(this);  }
         });
-        tLi = $("li", ul);
+        tLi = $(">li", ul);
         
         if ( st>1 ) {
           ul.append(tLi.clone());
-          var liS = $("li", ul).slice(st-1,st+tl-1).clone();
+          var liS = $(">li", ul).slice(st-1,st+tl-1).clone();
           ul.empty().append( liS);
           //$("li",ul).each(function(i){$("#log").append($(this).html());});   
-          tLi = $("li", ul);
+          tLi = $(">li", ul);
         }
           
         ul.prepend(tLi.slice(tl-sc).clone())
           .append(tLi.slice(0,sc).clone());
 
-        var li = $("li", ul), itemLength = li.size(), curr = 0;
+        var li = $(">li", ul), itemLength = li.size(), curr = 0;
         div.css("visibility", "visible");
         
         li.css({overflow: "hidden"});li.css("float", o.vertical ? "none" : "left");
@@ -88,7 +88,7 @@ $.fn.jCarouflexLite = function(o) {
                 running = true;
 
                 if(o.beforeStart) o.beforeStart.call(this, vis());
-                var nLi = (dir==1) ? $("li", ul).slice(2*sc,tl+2*sc).clone() : $("li", ul).slice(0,tl).clone() ;;
+                var nLi = (dir==1) ? $(">li", ul).slice(2*sc,tl+2*sc).clone() : $(">li", ul).slice(0,tl).clone() ;;
         
                 curr = (dir==1)?2*sc:0;
 
@@ -104,7 +104,7 @@ $.fn.jCarouflexLite = function(o) {
 
                         ul.css(animCss, -sc*liSize); 
                         
-                        li = $("li", ul);
+                        li = $(">li", ul);
                         if(o.afterEnd) o.afterEnd.call(this, vis());
                         
                         running = false;
